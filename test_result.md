@@ -111,11 +111,14 @@ backend:
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Implemented JWT-based authentication with register/login endpoints"
+      - working: true
+        agent: "testing"
+        comment: "Tested user registration and login endpoints. Both are working correctly with proper JWT token generation."
 
   - task: "Account Management API"
     implemented: true
@@ -123,11 +126,14 @@ backend:
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Created account creation, balance check, and account listing endpoints"
+      - working: true
+        agent: "testing"
+        comment: "Tested account creation, balance check, and account listing endpoints. All are working correctly. Default account is created with ₺1000 welcome bonus as expected."
 
   - task: "Transaction Processing System"
     implemented: true
@@ -135,11 +141,14 @@ backend:
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Implemented deposit, transfer, and transaction history with Turkish IBAN format"
+      - working: true
+        agent: "testing"
+        comment: "Tested deposit, transfer, and transaction history endpoints. All are working correctly with proper Turkish IBAN format."
 
   - task: "Bill Payment System"
     implemented: true
@@ -147,11 +156,14 @@ backend:
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Created bill payment API for Turkish utilities (electric, gas, water, telecom)"
+      - working: true
+        agent: "testing"
+        comment: "Tested bill payment API for Turkish utilities. The endpoint is working correctly, deducting the amount from the account balance and creating a transaction record."
 
   - task: "Card Management System"
     implemented: true
@@ -159,11 +171,14 @@ backend:
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Implemented virtual card creation and management with Turkish banking format"
+      - working: true
+        agent: "testing"
+        comment: "Tested virtual card creation and listing endpoints. Both are working correctly with proper card number masking and expiration date setting."
 
   - task: "Dashboard API"
     implemented: true
@@ -171,11 +186,17 @@ backend:
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Created comprehensive dashboard API with user overview, balances, and recent transactions"
+      - working: false
+        agent: "testing"
+        comment: "Found issue with Dashboard API - MongoDB ObjectId objects were not JSON serializable, causing 500 Internal Server Error."
+      - working: true
+        agent: "testing"
+        comment: "Fixed Dashboard API by converting MongoDB documents to dictionaries and ensuring ObjectId fields are converted to strings. All dashboard data is now correctly returned."
 
 frontend:
   - task: "Authentication UI"
