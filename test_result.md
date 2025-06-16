@@ -280,3 +280,5 @@ test_plan:
 agent_communication:
   - agent: "main"
     message: "Created comprehensive digital banking app with İşbank-inspired design. Implemented full authentication, account management, transfers, bill payments, and card management. Ready for backend testing."
+  - agent: "testing"
+    message: "Completed comprehensive backend API testing. Found and fixed an issue with the Dashboard API where MongoDB ObjectId objects were not properly serialized to JSON. All backend endpoints are now working correctly. The API successfully handles user registration, login, account management, transactions, bill payments, and card management with proper Turkish banking formats."
