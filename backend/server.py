@@ -478,6 +478,28 @@ async def get_dashboard(current_user: User = Depends(get_current_user)):
     # Get cards
     cards = await db.cards.find({"account_id": {"$in": account_ids}}).to_list(100)
     
+    # Convert MongoDB documents to dictionaries to ensure JSON serialization
+    accounts_list = []
+    for acc in accounts:
+        # Convert ObjectId to string if present
+        if '_id' in acc and not isinstance(acc['_id'], str):
+            acc['_id'] = str(acc['_id'])
+        accounts_list.append(acc)
+    
+    transactions_list = []
+    for tx in recent_transactions:
+        # Convert ObjectId to string if present
+        if '_id' in tx and not isinstance(tx['_id'], str):
+            tx['_id'] = str(tx['_id'])
+        transactions_list.append(tx)
+    
+    cards_list = []
+    for card in cards:
+        # Convert ObjectId to string if present
+        if '_id' in card and not isinstance(card['_id'], str):
+            card['_id'] = str(card['_id'])
+        cards_list.append(card)
+    
     return {
         "user": {
             "id": current_user.id,
@@ -485,9 +507,9 @@ async def get_dashboard(current_user: User = Depends(get_current_user)):
             "email": current_user.email
         },
         "total_balance": total_balance,
-        "accounts": accounts,
-        "recent_transactions": recent_transactions,
-        "cards": cards
+        "accounts": accounts_list,
+        "recent_transactions": transactions_list,
+        "cards": cards_list
     }
 
 # Health check
